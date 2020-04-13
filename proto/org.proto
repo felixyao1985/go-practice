@@ -1,0 +1,15 @@
+syntax = "proto3";
+package test;
+
+service OrgService {
+    rpc Get(Id) returns (Org);
+}
+
+message Org {
+    string id   = 1;
+    string name = 2;
+}
+
+message Id {
+    string Id = 1;
+}
