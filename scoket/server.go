@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/md5"
 	"fmt"
 	"net"
 	"practice/lib"
@@ -8,7 +9,8 @@ import (
 	"time"
 )
 
-var msg string
+var msg chan string = make(chan string)
+var coons []net.Conn
 
 func main() {
 	tcpAddr, err := net.ResolveTCPAddr("tcp4", config.Server_Address)
@@ -51,11 +53,19 @@ func readCline(conn net.Conn) {
 	}
 }
 
+func parsemd5(s string) string {
+	h := md5.New()
+	h.Write([]byte(s))
+	l := fmt.Sprintf("%x", h.Sum(nil))
+
+	return l
+}
 func writeCline(conn net.Conn) {
 	for {
-		if msg != "" {
-			_, err := config.Write(conn, "Scanln:"+msg)
-			msg = ""
+		select {
+		case msg1 := <-msg:
+			_, err := config.Write(conn, "Scanln:"+msg1)
+
 			if net.ErrWriteToConnected == err {
 				break
 			}
@@ -65,7 +75,9 @@ func writeCline(conn net.Conn) {
 
 func scanln() {
 	for {
-		fmt.Scanln(&msg)
-		fmt.Println("服务器输入了" + msg)
+		m := ""
+		fmt.Scanln(&m)
+		fmt.Println("服务器输入了" + m)
+		msg <- m
 	}
 }
