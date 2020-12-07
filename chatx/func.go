@@ -1,16 +1,23 @@
-package config
+package chatx
 
 import (
 	"bytes"
+	"crypto/md5"
+	"fmt"
 	"net"
 )
 
-//公共函数 用来定义Socket类型 ip 端口。
 const (
-	Server_NetWorkType = "tcp"
-	Server_Address     = "127.0.0.1:8085"
-	Delimiter          = '\t'
+	Delimiter = '\t'
 )
+
+func parsemd5(s string) string {
+	h := md5.New()
+	h.Write([]byte(s))
+	l := fmt.Sprintf("%x", h.Sum(nil))
+
+	return l
+}
 
 // 往conn中写数据，可以用于客户端传输给服务端， 也可以服务端返回客户端
 func Write(conn net.Conn, content string) (int, error) {
