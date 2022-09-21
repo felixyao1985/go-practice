@@ -2,8 +2,8 @@ package main
 
 import (
 	"practice/chatx"
+	"practice/chatx_demo/config"
 	"practice/lib"
-	"practice/socket/config"
 )
 
 func main() {

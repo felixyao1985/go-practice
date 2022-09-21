@@ -1,0 +1,33 @@
+#store:
+#  # backend to use
+#  backend: bolt
+#  # address or path for the database
+#  address: "./cayley.db"
+#  # open database in read-only mode
+#  read_only: false
+#  # backend-specific options
+#  options:
+#    nosync: false
+#query:
+#  timeout: 30s
+#load:
+#  ignore_duplicates: false
+#  ignore_missing: false
+#  batch: 10000
+
+store:
+  # backend to use
+  backend: mongo
+  # address or path for the database
+  address: "docker.for.mac.localhost:27017"
+  # open database in read-only mode
+  read_only: false
+  # backend-specific options
+  options:
+    nosync: false
+query:
+  timeout: 30s
+load:
+  ignore_duplicates: false
+  ignore_missing: false
+  batch: 10000

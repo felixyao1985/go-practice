@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"practice/chatx"
-	"practice/socket/config"
+	"practice/chatx_demo/config"
 )
 
 func main() {
